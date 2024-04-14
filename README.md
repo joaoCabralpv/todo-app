@@ -1,2 +1,2 @@
 # todo-app
-A todo app writen in c++
+A todo app writen in rust
