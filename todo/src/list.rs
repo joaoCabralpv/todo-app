@@ -23,8 +23,10 @@ impl List {
 
     fn list_tasks(&self) {
         for i in 0..self.tasks.len() {
-            println!("{}. {}",i,self.tasks[i])
+            println!("{}. {}",i,self.tasks[i]);
         }
+        println!("Press enter to go to the main menu");
+        _ = io::stdin().read_line(&mut String::new());
     }
 
     fn add_task(&mut self) {
@@ -38,6 +40,7 @@ impl List {
     }
 
     fn remove_task(&mut self) {
+        println!("What is the number of the task you want to remove");
         let mut task = String::new();
         io::stdin()
         .read_line(&mut task)
@@ -53,6 +56,17 @@ impl List {
             }
         };
 
-        self.tasks.remove(task);
+        println!("Do you want to to delete {} (Y/n)",self.tasks[task]);
+        let mut choise = String::new();
+        io::stdin()
+        .read_line(&mut choise)
+        .expect("Failed to read line");
+        let choise = choise.trim();
+        if choise.to_lowercase() == "y"{
+            self.tasks.remove(task);
+        }
+        
+
+
     }
 }
