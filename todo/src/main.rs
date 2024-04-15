@@ -4,7 +4,7 @@ use list::List;
 fn main() {
     let mut list = List::new();
     loop {
-    println!("Todo app v2.0\n");
+    println!("Todo app v2.0");
     println!("1-List all tasks");
     println!("2-Add new task");
     println!("3-Remove task");
@@ -27,7 +27,7 @@ fn main() {
     if option == 4{
         break;
     }
-    
+
     list.update(option)
 
 
