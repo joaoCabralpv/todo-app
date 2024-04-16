@@ -43,3 +43,6 @@ pub fn confirm() -> bool {
    trimmed().to_lowercase() == "y"
 }
     
+pub fn wait_until_enter() {
+    io::stdin().read_line(&mut String::new()).unwrap_or(0);
+}

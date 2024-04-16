@@ -1,5 +1,4 @@
 use std::vec;
-use std::io;
 use crate::input;
 
 struct Task {
@@ -30,6 +29,18 @@ impl List {
             tasks:Vec::new()
         }
     }
+
+    fn is_index_valid_with_print(&self, index: usize, print: bool) -> bool {
+        if index <= self.tasks.len()-1 {
+            return true;
+        }
+        if print {
+            println!("\nTask is not present\npress enter to continue");
+            input::wait_until_enter();
+        }
+        false
+    }
+
     pub fn update(&mut self,option:u8) -> bool{
         match option {
             1 => self.list_tasks(),
@@ -47,7 +58,7 @@ impl List {
             println!("{}. {}",i,self.tasks[i].to_string());
         }
         println!("Press enter to go to the main menu");
-        _ = io::stdin().read_line(&mut String::new());
+        input::wait_until_enter();
     }
 
     fn add_task(&mut self) {
@@ -58,6 +69,9 @@ impl List {
     fn remove_task(&mut self) {
         println!("What is the number of the task you want to remove");
         let task = input::as_usize();
+        if !self.is_index_valid_with_print(task, true) {
+            return;
+        }
         println!("Do you want to to delete {} (Y/n)",self.tasks[task].to_string());
 
         if input::confirm() {
@@ -69,6 +83,9 @@ impl List {
     fn mark_as_done(&mut self) {
         println!("What is the number of the task you want to mark as done");
         let task = input::as_usize();
+        if !self.is_index_valid_with_print(task, true) {
+            return;
+        }
         println!("Do you want to mark {} as done (Y/n)", self.tasks[task].to_string());
         if input::confirm() {
             self.tasks[task].done = true;
