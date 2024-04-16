@@ -10,7 +10,8 @@ fn main() {
     println!("2-Add new task");
     println!("3-Remove task");
     println!("4-Mark task as done");
-    println!("5-Exit program");
+    println!("5-Mark task as not done");
+    println!("6-Exit program");
 
     let option = input::as_u8();
 

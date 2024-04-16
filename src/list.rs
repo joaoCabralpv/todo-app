@@ -2,7 +2,7 @@ use std::vec;
 use crate::input;
 
 struct Task {
-    name:String,
+    pub name:String,
     pub done:bool,
 }
 
@@ -17,6 +17,7 @@ impl Task {
         };
         self.name.clone()+done
     }
+
 }
 
 pub struct List {
@@ -47,7 +48,8 @@ impl List {
             2 => self.add_task(),
             3 => self.remove_task(),
             4 => self.mark_as_done(),
-            5 => return false,
+            5 => self.mark_task_as_not_done(),
+            6 => return false,
             _ => println!("Invalid option"),
         }
         return true;
@@ -86,9 +88,21 @@ impl List {
         if !self.is_index_valid_with_print(task, true) {
             return;
         }
-        println!("Do you want to mark {} as done (Y/n)", self.tasks[task].to_string());
+        println!("Do you want to mark {} as done (Y/n)", self.tasks[task].name);
         if input::confirm() {
             self.tasks[task].done = true;
+        }
+    }
+
+    fn mark_task_as_not_done(&mut self) {
+        println!("What is the number of the task you want to mark as not done");
+        let task = input::as_usize();
+        if !self.is_index_valid_with_print(task, true) {
+            return;
+        }
+        println!("Do you want to mark {} as not done (Y/n)", self.tasks[task].name);
+        if input::confirm() {
+            self.tasks[task].done = false;
         }
     }
 
